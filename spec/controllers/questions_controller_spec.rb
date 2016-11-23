@@ -100,6 +100,36 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to question
       end
     end
+
+    context 'invalid attributes' do
+      before { patch :update, id: question, question: {title: 'new title', body: nil } }
+
+      it 'does not change question attributes' do
+        question.reload
+        expect(question.title).to eq 'MyString'        
+        expect(question.body).to eq 'MyText'        
+      end
+
+      it 're-render edit view' do
+        expect(response).to render_template :edit
+      end
+
+    end
   end
+
+  describe 'DELETE #destroy' do
+    before { question }
+    
+    it 'delete question' do
+      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+    end
+
+    it 'redirect to index view' do 
+      delete :destroy, id: question
+      expect(response).to redirect_to questions_path
+    end
+  end
+
+
 
 end
