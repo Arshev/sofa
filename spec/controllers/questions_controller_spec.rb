@@ -119,7 +119,7 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     before { question }
-    
+
     it 'delete question' do
       expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
     end
@@ -129,7 +129,4 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to redirect_to questions_path
     end
   end
-
-
-
 end
