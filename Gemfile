@@ -27,8 +27,11 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'slim-rails'
+<<<<<<< HEAD
 gem 'twitter-bootstrap-rails'
 gem "therubyracer"
+=======
+>>>>>>> ae67c860fd7a41df7ec07ce267a0b4026a9bf0f1
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
