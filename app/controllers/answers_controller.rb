@@ -1,19 +1,26 @@
 class AnswersController < ApplicationController
   before_action :set_question, only: [:create]
+  before_action :set_answer, only: [:destroy]
   
   def create
     @answer = @question.answers.new(answers_params)
-    if @answer.save
+    @answer.save
     redirect_to @question
-    else
-      render :new
-    end
+  end
+
+  def destroy
+    @answer.destroy
+    redirect_to question_path
   end
 
   private
 
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def set_answer
+    @answer = Answer.find(params[:answer_id])
   end
 
   def answers_params
