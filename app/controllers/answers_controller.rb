@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answers_params)
     @answer.save
-    redirect_to @question
+    render :show
   end
 
   def destroy
@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
   end
 
   def set_answer
-    @answer = Answer.find(params[:answer_id])
+    @answer = Answer.find(params[:id])
   end
 
   def answers_params

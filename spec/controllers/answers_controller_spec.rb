@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
 
   let(:question) { question = create(:question) }
-  let(:answer) { create(:answer, question: question) }
+  let(:answer) { answer = create(:answer, question: question) }
 
   describe 'POST #create' do 
     context 'with valid attributes' do
       it 'save answer in database' do 
-        expect { post :create, params: {answer: attributes_for(:answer), question_id: question }}.to change(Answer, :count).by(1)
+        expect { post :create, params: {answer: attributes_for(:answer), question_id: question }}.to change(question.answers, :count).by(1)
       end
-      it 'redirects to show' do
+      it 'render show' do
         post :create, params: {answer: attributes_for(:answer), question_id: question}
-        expect(response).to redirect_to question_path(assigns(:question))
+        expect(response).to render_template :show
       end
     end
 
@@ -24,8 +24,10 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'delete question' do
-      expect { delete :destroy, params: {id: answer.id} }.to change(Answer, :count).by(-1)
+    before { answer }
+
+    it 'delete answer' do
+      expect { delete :destroy, params: { id: answer, question_id: question } }.to change(Answer, :count).by(-1)
     end
   end
 end
