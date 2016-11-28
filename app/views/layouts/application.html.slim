@@ -18,5 +18,9 @@ html lang="en"
 
       .container
         .main
+          .notice
+          = notice
+          .alert
+          = alert 
           = yield
       = render 'common/footer'
