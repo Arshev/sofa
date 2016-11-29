@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
   before_action :set_question, only: [:create]
-  before_action :set_answer, only: [:destroy]
+  before_action :set_answer, only: [:show, :destroy]
   
   def create
     @answer = @question.answers.new(answers_params)
@@ -13,6 +13,9 @@ class AnswersController < ApplicationController
   def destroy
     @answer.destroy
     redirect_to question_path
+  end
+
+  def show
   end
 
   private
