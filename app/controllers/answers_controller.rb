@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answers_params)
     @answer.save
+
     render :show
   end
 

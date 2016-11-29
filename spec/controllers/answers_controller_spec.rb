@@ -22,6 +22,12 @@ RSpec.describe AnswersController, type: :controller do
         expect { post :create, params: {answer: attributes_for(:invalid_answer), question_id: question }}.to_not change(Answer, :count)
       end
     end
+
+    context 'whith invalid attributes' do
+      it 'does not save the question' do
+        expect { post :create, params: {answer: attributes_for(:invalid_answer), question_id: question }}.to_not change(Answer, :count)
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
