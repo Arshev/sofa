@@ -1,9 +1,10 @@
+h1 Welcome on SOFA - StackOverFlow analog)
 table.table
   - @questions.each do |question|
     th Title
     th Questions
     tr
-      td = question.title
+      td.question_title = question.title
       td = question.body
 br
 p= link_to 'Ask Question', new_question_path
