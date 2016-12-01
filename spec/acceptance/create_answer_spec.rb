@@ -18,5 +18,10 @@ feature 'User can add answer on the question', %q{
     expect(page).to have_content 'Test answer content'
   end
 
-  scenario 'Non-authenticated user add answer'
+  scenario 'Non-authenticated user add answer' do
+    visit question_path(question)
+    click_on 'Add Answer'
+
+    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+  end
 end
