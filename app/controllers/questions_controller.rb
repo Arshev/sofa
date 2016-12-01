@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :build_answer, only: :show
 
   def index
     @questions = Question.all
@@ -42,6 +43,10 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.find(params[:id])
+  end
+
+  def build_answer
+    @answer = @question.answers.new
   end
 
   def question_params
