@@ -11,8 +11,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer.destroy
-    redirect_to question_path
+    @answer.destroy if current_user.author_of?(@answer)
   end
 
   def show
