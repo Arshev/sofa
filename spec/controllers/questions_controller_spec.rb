@@ -66,6 +66,11 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, params: {question: attributes_for(:question)} }.to change(Question, :count).by(1)
       end
 
+      it 'associates current user with question' do
+        post :create, params: {question: attributes_for(:question)}
+        expect(assigns(:question).user_id).to eq @user.id
+      end
+
       it 'redirect to create view' do 
         post :create, params: {question: attributes_for(:question)}
 
