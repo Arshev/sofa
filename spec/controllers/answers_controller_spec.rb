@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
 
-  let(:question) { question = create(:question) }
+  let(:question) { create(:question) }
   let(:answer) { answer = create(:answer, question: question) }
 
   describe 'POST #create' do 
