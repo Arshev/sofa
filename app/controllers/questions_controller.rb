@@ -11,14 +11,14 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = current_user.question.new
+    @question = current_user.questions.new
   end
 
   def edit
   end
 
   def create
-    @question = current_user.question.new(question_params)
+    @question = current_user.questions.create(question_params)
     if @question.save
       redirect_to @question
     else
@@ -35,7 +35,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
+    if current_user.check_author(@question)
       @question.destroy
       redirect_to questions_path
     else
