@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
 
-  let(:question) { create(:question) }
+  let!(:question) { create(:question) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
@@ -10,7 +10,7 @@ RSpec.describe QuestionsController, type: :controller do
     before { get :index }
 
     it 'populates an array of all questions' do 
-      expect(assigns(:questions)).to match_array(@questions)
+      expect(assigns(:questions)).to match_array(Question.all)
     end
 
     it 'renders index view' do
