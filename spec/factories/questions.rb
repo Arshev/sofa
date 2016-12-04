@@ -1,11 +1,11 @@
 FactoryGirl.define do
 
   sequence :title do |n|
-    "Question #{n + rand(100..1000)}"
+    "Question #{n}"
   end
 
   sequence :body do |n|
-    "Test content #{n + rand(100..1000)}"
+    "Test content #{n}"
   end
 
   factory :question do
