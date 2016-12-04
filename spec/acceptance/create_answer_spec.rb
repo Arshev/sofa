@@ -14,7 +14,6 @@ feature 'User can add answer on the question', %q{
     visit question_path(question)
     fill_in 'Body', with: 'Test answer content'
     click_on 'Add Answer'
-    save_and_open_page
     
     expect(page).to have_content ('Test answer content')
   end
