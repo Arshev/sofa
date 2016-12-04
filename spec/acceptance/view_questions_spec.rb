@@ -9,6 +9,6 @@ feature 'User can view questions', %q{
 
   scenario 'User can view list of a questions' do
     visit questions_path
-    expect(page).to have_selector '.question_title'
+    expect(page).to have_content('Test content 1')
   end
 end
