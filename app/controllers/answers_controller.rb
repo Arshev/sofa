@@ -4,8 +4,9 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: [:destroy]
   
   def create
-    @answer = current_user.answers.create(answers_params)
-    @answer.save
+    @answer = @question.answers.new(answers_params)
+      @answer.user = current_user
+      @answer.save
   end
 
   def destroy
