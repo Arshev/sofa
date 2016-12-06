@@ -4,14 +4,14 @@ p = @question.body
 = link_to 'Edit', edit_question_path(@question)
 = link_to 'Back', questions_path
 = link_to 'Delete', @question, method: :delete, data: { confirm: 'Are you sure?' }
-
-- if @question.answers.count > 0
-    = render 'answers'
-- else
-    p class="empty-text" No answers yet.
+.answers
+  - if @question.answers.count > 0
+      = render 'answers'
+  - else
+      p class="empty-text" No answers yet.
 
 .form-group
-= form_for [@question, @answer] do |f|
+= form_for [@question, @answer], remote: true do |f|
   .form-group
     = f.label :body
     = f.text_area :body, class: 'form-control'
