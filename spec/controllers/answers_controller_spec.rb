@@ -9,19 +9,19 @@ RSpec.describe AnswersController, type: :controller do
     sign_in_user #modul ControllerMacros
     context 'with valid attributes' do
       it 'save answer in database' do 
-        expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(question.answers, :count).by(1)
+        expect { post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js } }.to change(question.answers, :count).by(1)
       end
     end
 
     context 'whith invalid attributes' do
       it 'does not save the question' do
-        expect { post :create, params: {answer: attributes_for(:invalid_answer), question_id: question }}.to_not change(question.answers, :count)
+        expect { post :create, params: {answer: attributes_for(:invalid_answer), question_id: question, format: :js }}.to_not change(question.answers, :count)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    let(:delete_action) { delete :destroy, params: {question_id: answer.question.id, id: answer} }
+    let(:delete_action) { delete :destroy, params: {question_id: answer.question.id, id: answer, format: :js } }
     
     context 'delete author' do 
       before { sign_in answer.user }
