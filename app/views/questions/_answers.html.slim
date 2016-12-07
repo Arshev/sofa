@@ -1,4 +1,4 @@
 h1 Answers:
 - @question.answers.each do |answer|
   p = answer.body
-  = link_to 'Delete', [@question, @answer], method: :delete, data: { confirm: 'Are you sure?' }, class: 'answer-delete'
+  = link_to 'Delete', [@question, answer], method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :set_question, only: [:create]
+  before_action :set_question, only: [:create, :destroy]
   before_action :set_answer, only: [:destroy]
   
   def create
@@ -11,6 +11,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy if current_user.check_author(@answer)
+    redirect_to @question
   end
 
   private
