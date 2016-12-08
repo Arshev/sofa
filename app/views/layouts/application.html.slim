@@ -15,10 +15,10 @@ html lang="en"
   body
     .wrapper
       = render 'common/nav'
+      p.notice= notice
+      p.alert= alert
 
       .container
         .main
-        p class="notice" = notice
-        p class="alert"  = alert 
         = yield
       = render 'common/footer'

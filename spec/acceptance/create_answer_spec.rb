@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User can add answer on the question', %q{
   In order to add answer for community
@@ -25,5 +25,14 @@ feature 'User can add answer on the question', %q{
     click_on 'Add Answer'
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  scenario 'User try to create invalid answer', js: true do
+    sign_in(user) #AcceptanceHelper module
+
+    visit question_path(question)
+    click_on 'Add Answer'
+
+    expect(page).to have_content "Body can't be blank"
   end
 end
