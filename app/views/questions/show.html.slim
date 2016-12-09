@@ -10,11 +10,11 @@ p = @question.body
   - else
       p class="empty-text" No answers yet.
 
-.form-group
-= form_for [@question, @answer], remote: true do |f|
   .form-group
-    = f.label :body
-    .answer-errors
-    = f.text_area :body, class: 'form-control'
-    = f.submit 'Add Answer', class: 'btn btn-primary'
+  = form_for [@question, @answer], remote: true do |f|
+    .form-group
+      = f.label :body
+      .answer-errors
+      = f.text_area :body, class: 'form-control'
+      = f.submit 'Add Answer', class: 'btn btn-primary'
 
