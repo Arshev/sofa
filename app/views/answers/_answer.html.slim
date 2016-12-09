@@ -1,2 +1,10 @@
-p = answer.body
-= link_to 'Delete', [@question, answer], method: :delete, data: { confirm: 'Are you sure?' }
+- if answer.persisted?
+  .answer-text
+  p = answer.body
+  = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+  = link_to 'Delete', [@question, answer], method: :delete, data: { confirm: 'Are you sure?' }
+  p
+    = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+      p= f.label :body, 'Answer'
+      p= f.text_area :body
+      p= f.submit 'Save', class: 'btn btn-default'
