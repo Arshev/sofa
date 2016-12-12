@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.create(question_params)
     if @question.save
-      redirect_to @question
+      redirect_to @question, notice: 'Add question succese'
     else
       render :new
     end
