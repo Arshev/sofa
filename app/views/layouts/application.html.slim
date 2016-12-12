@@ -15,10 +15,9 @@ html lang="en"
   body
     .wrapper
       = render 'common/nav'
-      p.notice= notice
-      p.alert= alert
 
       .container
         .main
+        = bootstrap_flash
         = yield
       = render 'common/footer'
