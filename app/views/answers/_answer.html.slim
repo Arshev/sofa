@@ -2,10 +2,16 @@ div id="answer_#{answer.id}"
   - if answer.persisted?
     .answer-text
     p = answer.body
-    = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-    = link_to 'Delete', [@question, answer], class: 'delete-answer-link btn ', method: :delete, remote: true, data: {confirm: "Are you sure?"}
-    p
-      = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
-        p= f.label :body, 'Answer'
-        p= f.text_area :body
-        p= f.submit 'Save', class: 'btn btn-default'
+      - if answer.best?
+        .answer-body = answer.body
+      - else
+        = link_to 'make best', '', method: :patch,
+                remote: true,
+                class: "make-best-button btn btn-sm btn-outline-info float-xs-right best-link"
+    - if user_signed_in? && answer.user_id == current_user.id
+      = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+      = link_to 'Delete', [@question, answer], class: 'delete-answer-link btn ', method: :delete, remote: true, data: {confirm: "Are you sure?"}
+      p = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+          p= f.label :body, 'Answer'
+          p= f.text_area :body
+          p= f.submit 'Save', class: 'btn btn-default'
