@@ -8,7 +8,11 @@ class Answer < ApplicationRecord
   default_scope { order(best: :desc) }
 
   def set_best
-  
+    Answer.transaction do
+      question.answers.update_all(best:false)
+      raise ActiveRecord::Rollback unless question.answers.where(best: true).first.nil?
+      update(best:true)
+    end  
   end
 
   
