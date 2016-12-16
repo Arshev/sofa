@@ -31,7 +31,6 @@ feature 'answer editing', %q{
       within '.answers' do
         click_on 'Edit'
         fill_in 'Answer', with: 'edited answer'
-        save_and_open_page
         click_on 'Save'
 
         expect(page).to_not have_content answer.body

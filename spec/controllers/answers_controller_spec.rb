@@ -62,4 +62,17 @@ RSpec.describe AnswersController, type: :controller do
       expect(response).to render_template :update
     end
   end
+
+  describe 'PATCH #set_best' do
+    sign_in_user #modul ControllerMacros
+    it 'assigns the requested answer to @answer' do 
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'assigns the question' do 
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:question)).to eq question
+    end
+  end
 end

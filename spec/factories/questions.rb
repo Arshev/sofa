@@ -19,4 +19,13 @@ FactoryGirl.define do
     title nil
     body nil
   end
+
+  factory :question_with_answers, class: "Question" do
+    user
+    title
+    body 'Test content in question with answer'
+    after(:create) do |question|
+      create_list(:answer, 3, question: question)
+    end
+  end
 end
