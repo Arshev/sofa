@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :set_question, only: [:create, :destroy, :answer_best]
-  before_action :set_answer, only: [:update, :destroy, :answer_best]
+  before_action :set_question, only: [:create, :destroy, :best]
+  before_action :set_answer, only: [:update, :destroy, :best]
   
   def create
     @answer = @question.answers.create(answers_params)
@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answers_params)
+    @answer.update(answers_params) if current_user.check_author(@answer)
     @question = @answer.question
   end
 
@@ -18,7 +18,7 @@ class AnswersController < ApplicationController
     @answer.destroy if current_user.check_author(@answer)
   end
 
-  def answer_best
+  def best
     @question = @answer.question
     @answer.set_best if current_user.check_author(@answer)
   end
