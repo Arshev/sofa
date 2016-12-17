@@ -1,11 +1,9 @@
 div id="answer_#{answer.id}"
   - if answer.persisted?
-    - if answer.best?
-      .answer-text = answer.body
-    - else
-      .answer-text = answer.body
-      = link_to 'Make best', answer_best_question_answer_path(answer), method: :patch, remote: true, class: "btn btn-default"
-    - if user_signed_in? && answer.user_id == current_user.id
+    .answer-text = answer.body
+    - if answer.best? && user_signed_in? && current_user.check_author(@question)
+        = link_to 'Make best', best_question_answer_path(@question, answer), method: :patch, remote: true, class: "btn btn-default"
+    - if user_signed_in? && current_user.check_author(answer)
       = link_to 'Edit', '', class: 'edit-answer-link btn btn-default', data: { answer_id: answer.id }
       = link_to 'Delete', [@question, answer], class: 'delete-answer-link btn btn-default ', method: :delete, remote: true, data: {confirm: "Are you sure?"}
       p = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|

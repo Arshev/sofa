@@ -20,15 +20,16 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.create(question_params)
     if @question.save
-      redirect_to @question, notice: 'Add question succese'
+      redirect_to @question, notice: 'Add question success'
     else
       render :new
     end
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question
+    if current_user.check_author(@question) 
+      @question.update(question_params)
+      redirect_to @question, notice: 'Update question success'
     else
       render :edit
     end

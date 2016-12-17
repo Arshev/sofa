@@ -11,7 +11,7 @@ class Answer < ApplicationRecord
     Answer.transaction do
       question.answers.update_all(best:false)
       raise ActiveRecord::Rollback unless question.answers.where(best: true).first.nil?
-      update(best:true)
+      update!(best:true)
     end  
   end
 
