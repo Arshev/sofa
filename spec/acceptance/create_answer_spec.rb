@@ -33,6 +33,6 @@ feature 'User can add answer on the question', %q{
     visit question_path(question)
     click_on 'Add Answer'
 
-    expect(page).to have_content "Body can't be blank"
+    expect(page).to have_content "Body is too short (minimum is 5 characters)"
   end
 end

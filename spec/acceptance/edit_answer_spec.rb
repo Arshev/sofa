@@ -6,6 +6,7 @@ feature 'answer editing', %q{
   I'd like to be able to edit my answer
 } do
   given(:user) { create(:user) }
+  given(:user2) { create(:user) }
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question) }
 
@@ -18,7 +19,7 @@ feature 'answer editing', %q{
 
   describe 'Authenticated user' do
     before do
-      sign_in(user)
+      sign_in(answer.user)
       visit question_path(question)
     end
 
@@ -38,7 +39,15 @@ feature 'answer editing', %q{
         expect(page).to_not have_selector 'textarea'
       end
     end
-    scenario "try edit other author's answer"
   end
 
+  describe 'Authenticated user, not author', js: true do
+    scenario "try edit other author's answer" do
+      sign_in(user2)
+      visit question_path(question)
+      within '.answers' do
+        expect(page).to_not have_link 'Edit'
+      end
+    end
+  end
 end
