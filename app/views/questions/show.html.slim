@@ -1,9 +1,18 @@
-h1 = @question.title
-p = @question.body
-
-= link_to 'Edit', edit_question_path(@question) 
-= link_to 'Back', questions_path
-= link_to 'Delete', @question, method: :delete, data: { confirm: 'Are you sure?' }
+.question
+  h1 = @question.title
+  p = @question.body
+  - if user_signed_in?
+      = link_to 'Edit', '', class: 'edit-question-link btn btn-default', data: { question_id: @question.id }
+      = link_to 'Delete', [@question], class: 'delete-question-link btn btn-default ', method: :delete, remote: true, data: {confirm: "Are you sure?"}
+      p = form_for [@question], remote: true, html: { id: "edit-question-#{@question.id}" } do |f|
+          .form-group
+            = f.label :title
+            = f.text_field :title, class: 'form-control'
+          .form-group
+            = f.label :body
+            = f.text_area :body, class: 'form-control'
+          p= f.submit 'Save', class: 'btn btn-default'
+  = link_to 'Back', questions_path
 .answers
   - if @question.answers.count > 0
       = render 'answers'
