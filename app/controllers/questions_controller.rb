@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   before_action :build_answer, only: :show
-
+  
   def index
     @questions = Question.all
   end
@@ -27,12 +27,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.check_author(@question) 
-      @question.update(question_params)
-      redirect_to @question, notice: 'Update question success'
-    else
-      render :edit
-    end
+    @question.update(question_params) if current_user.check_author(@question)
   end
 
   def destroy

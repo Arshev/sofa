@@ -92,27 +92,31 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'PATCH #update' do 
     sign_in_user #modul ControllerMacros
-    context 'valid attributes' do
+    context 'update author with valid attributes' do
+      before { sign_in question.user }
+
       it 'assigns the requested question to @question' do 
-        patch :update, params: {id: question, question: attributes_for(:question)}
+        patch :update, params: {id: question, question: attributes_for(:question), format: :js }
         expect(assigns(:question)).to eq question
       end
 
       it 'changes question attributes' do
-        patch :update, params: {id: question, question: {title: 'new title', body: 'new body'}}
+        patch :update, params: {id: question, question: {title: 'new title', body: 'new body'}, format: :js }
         question.reload
         expect(question.title).to eq 'new title'        
         expect(question.body).to eq 'new body'
       end
 
-      it 'redirects to the updates question' do
-        patch :update, params: {id: question, question: attributes_for(:question)}
-        expect(response).to redirect_to question
+      it 'render update templete' do
+        patch :update, params: {id: question, question: attributes_for(:question), format: :js }
+        expect(response).to render_template :update
       end
     end
 
-    context 'invalid attributes' do
-      before { patch :update, params: {id: question, question: {title: 'new title', body: nil }} }
+    context 'update author with invalid attributes' do
+      before { sign_in question.user }
+
+      before { patch :update, params: {id: question, question: {title: 'new title', body: nil }, format: :js } }
 
       it 'does not change question attributes' do
         question.reload
@@ -121,7 +125,21 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 're-render edit view' do
-        expect(response).to render_template :edit
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'update not author' do
+      it 'changes question attributes' do
+        patch :update, params: {id: question, question: {title: 'new title', body: 'new body'}, format: :js }
+        question.reload
+        expect(question.title).to_not eq 'new title'        
+        expect(question.body).to eq 'Test content 1'
+      end
+
+      it 'render update template' do
+        patch :update, params: {id: question, question: attributes_for(:question), format: :js }
+        expect(response).to render_template :update
       end
     end
   end

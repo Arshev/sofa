@@ -43,6 +43,8 @@ RSpec.describe AnswersController, type: :controller do
     sign_in_user #modul ControllerMacros
 
     context 'Update author' do
+      before { sign_in answer.user }
+
       it 'assigns the requested answer to @answer' do 
         patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
         expect(assigns(:answer)).to eq answer
@@ -66,7 +68,7 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'Update not author' do
-      it 'changes question attributes' do
+      it 'changes answer attributes' do
         patch :update, params: { id: answer, question_id: question, answer: { body: 'new answer body'}, format: :js }
         answer.reload       
         expect(answer.body).to eq 'MyText'
