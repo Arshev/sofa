@@ -1,7 +1,7 @@
 div id="answer_#{answer.id}"
   - if answer.persisted?
     .answer-text = answer.body
-    - if answer.best == false && user_signed_in? && current_user.check_author(@question)
+    - if !(answer.best?) && user_signed_in? && current_user.check_author(@question)
       = link_to 'Make best', best_question_answer_path(@question, answer), method: :patch, remote: true, class: "btn btn-default"
     - if user_signed_in? && current_user.check_author(answer)
       = link_to 'Edit', '', class: 'edit-answer-link btn btn-default', data: { answer_id: answer.id }
