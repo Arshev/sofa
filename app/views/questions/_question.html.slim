@@ -4,7 +4,7 @@
   - if user_signed_in?
       = link_to 'Edit', '', class: 'edit-question-link btn btn-default', data: { question_id: question.id }
       = link_to 'Delete', [question], class: 'delete-question-link btn btn-default ', method: :delete, remote: true, data: {confirm: "Are you sure?"}
-      p = form_for [question], remote: true, html: { id: "edit-question-#{question.id}" } do |f|
+      p = form_for question, remote: true, html: { id: "edit-question-#{question.id}" } do |f|
           .form-group
             = f.label :title
             = f.text_field :title, class: 'form-control'
