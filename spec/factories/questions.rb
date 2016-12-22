@@ -25,7 +25,7 @@ FactoryGirl.define do
     title
     body 'Test content in question with answer'
     after(:create) do |question|
-      create_list(:answer, 1, question: question)
+      create_list(:answer, 5, question: question)
     end
   end
 end
