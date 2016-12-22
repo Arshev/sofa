@@ -32,7 +32,7 @@ feature 'set Best answer', %q{
     end
     scenario 'Author question try set the best of answers', js: true do
       within '.answers' do
-        click_link('Make best', match: 4)
+        click_link('Make best', match: :first)
 
         expect(page).to have_link 'Make best', count: 4
         expect(page).to have_css '#best-answer', count: 1

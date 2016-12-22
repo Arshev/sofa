@@ -71,7 +71,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'changes answer attributes' do
         patch :update, params: { id: answer, question_id: question, answer: { body: 'new answer body'}, format: :js }
         answer.reload       
-        expect(answer.body).to eq 'MyText'
+        expect(answer.body).to eq 'Test content 1'
       end
 
       it 'render update template' do
@@ -83,14 +83,25 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'PATCH #set_best' do
     sign_in_user #modul ControllerMacros
-    it 'assigns the requested answer to @answer' do 
-      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
-      expect(assigns(:answer)).to eq answer
+
+    context 'question author' do
+      it 'assigns the requested answer to @answer' do 
+        patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+        expect(assigns(:answer)).to eq answer
+      end
+
+      it 'assigns the question' do 
+        patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+        expect(assigns(:question)).to eq question
+      end
     end
 
-    it 'assigns the question' do 
-      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
-      expect(assigns(:question)).to eq question
+    context 'not question author' do
+      it 'try set best answer' do
+        patch :best, params: { id: answer, question_id: question }, format: :js
+
+        expect(answer.best).to eq false
+      end
     end
   end
 end
