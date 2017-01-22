@@ -11,5 +11,10 @@
     = f.label :body
     .answer-errors
     = f.text_area :body, class: 'form-control'
+    p Attachments:
+    p 
+      = f.fields_for :attachments do |a|
+        = a.label :file
+        = a.file_field :file
     = f.submit 'Add Answer', class: 'btn btn-primary'
 

@@ -1,6 +1,10 @@
 div id="answer_#{answer.id} #{'best-answer' if answer.best}"
   - if answer.persisted?
     .answer-text = answer.body
+    p Attachments:
+    ul
+      - answer.attachments.each do |a|
+        li= link_to a.file.identifier, a.file.url
     - if !answer.best? && user_signed_in? && current_user.check_author(@question)
       = link_to 'Make best', best_question_answer_path(@question, answer), method: :patch, remote: true, class: "btn btn-default make-best-link"
     - if user_signed_in? && current_user.check_author(answer)
