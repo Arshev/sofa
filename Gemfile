@@ -32,6 +32,7 @@ gem "therubyracer"
 gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
+gem "cocoon"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
