@@ -7,5 +7,5 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
   validates :title, length: { minimum: 5, maximum: 255 }
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank
 end
