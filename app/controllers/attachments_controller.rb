@@ -1,10 +1,10 @@
-class AnswersController < ApplicationController
+class AttachmentsController < ApplicationController
   before_action :authenticate_user!, only: [:destroy]
   before_action :load_attachment
   respond_to :js
 
   def destroy
-    @attachment.destroy if current_user.check_author(@attachment.attachable)
+    @attachment.destroy if current_user.check_author(@attachment.attachmentable)
   end
 
   private

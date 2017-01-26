@@ -1,9 +1,11 @@
-.field
-  - attachment = f.object
-  - if attachment.persisted?
-    .attached
-      = link_to attachment.file.identifier, attachment.file.url
-      p= link_to 'delete', attachment_path(attachment), method: :delete, remote: true
-  - else
-    = f.file_field :file
-  = link_to_remove_association "remove", f
+.nested-fields
+  .field
+    - attachment = f.object
+    - if attachment.persisted?
+      .attached
+        = link_to attachment.file.identifier, attachment.file.url
+    - else
+      .field
+        = f.label :file
+        = f.file_field :file
+    = link_to_remove_association "remove", f
