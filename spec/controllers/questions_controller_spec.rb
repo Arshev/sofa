@@ -132,8 +132,8 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'does not change question attributes' do
         question.reload
-        expect(question.title).to eq question.title        
-        expect(question.body).to eq question.body        
+        expect(question.title).to_not eq 'new title'        
+        expect(question.body).to_not eq nil        
       end
 
       it 're-render edit view' do
@@ -146,7 +146,7 @@ RSpec.describe QuestionsController, type: :controller do
         patch :update, params: {id: question, question: {title: 'new title', body: 'new body'}, format: :js }
         question.reload
         expect(question.title).to_not eq 'new title'        
-        expect(question.body).to eq 'Test content'
+        expect(question.body).to_not eq 'new body'
       end
 
       it 'render update template' do
