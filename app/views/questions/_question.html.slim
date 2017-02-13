@@ -1,6 +1,7 @@
 .question
   h1 = question.title
   p = question.body
+  = render 'votes/vote', resource: @question
   p Attachments:
   ul
     - @question.attachments.each do |a|
