@@ -62,12 +62,13 @@ ActiveRecord::Schema.define(version: 20170209114122) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "value",        default: 0, null: false
+    t.integer  "value",        default: 0
     t.string   "votable_type"
     t.integer  "user_id"
     t.integer  "votable_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.index ["user_id"], name: "index_votes_on_user_id", using: :btree
     t.index ["votable_id", "votable_type", "user_id"], name: "index_votes_on_votable_id_and_votable_type_and_user_id", unique: true, using: :btree
     t.index ["votable_id", "votable_type"], name: "index_votes_on_votable_id_and_votable_type", using: :btree
     t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id", using: :btree
