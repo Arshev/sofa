@@ -1,6 +1,10 @@
 .vote
-
-  p= link_to '+', polymorphic_path([:vote_up, resource]), method: :patch, remote: true, class: "vote-up"
-  .rating
-    p= resource.rating
-  p= link_to '-', polymorphic_path([:vote_down, resource]), method: :patch, remote: true, class: "vote-down"
+  - if user_signed_in? && current_user.check_author(resource) == false
+    p= link_to '+', polymorphic_path([:vote_up, resource]), method: :patch, remote: true, class: "vote-up"
+    .rating
+      p= resource.rating
+    p= link_to '-', polymorphic_path([:vote_down, resource]), method: :patch, remote: true, class: "vote-down"
+  - else
+    .vote
+      .rating
+        p= resource.rating
