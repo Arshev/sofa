@@ -6,18 +6,17 @@ feature 'Vote question', '
   I want to be able to vote question
 ' do
 
-  given!(:question) { create(:question) }
+  given(:question) { create(:question_with_answers) }
 
   context 'Authenticated user' do
     let(:user) { create(:user) }
-
     before do
       sign_in(user)
       visit question_path(question)
     end
 
-    scenario 'Vote + for question', js: true do
-      within '.question' do
+    scenario 'Vote + for answer', js: true do
+      within all('.vote').first do
         click_on '+'
 
         within '.rating' do
@@ -26,8 +25,8 @@ feature 'Vote question', '
       end
     end
 
-    scenario 'Vote - for question', js: true do
-      within '.question' do
+    scenario 'Vote - for answer', js: true do
+      within all('.vote').first do
         click_on '-'
 
         within '.rating' do
@@ -38,15 +37,11 @@ feature 'Vote question', '
   end
 
   context 'Non-authenticated user' do
-    before do
-      visit question_path(question)
-    end
 
-    scenario 'User try to vote for own question', js: true do
-      within '.question' do
-        within '.vote' do
-          expect(page).not_to have_link('+')
-        end
+    scenario 'User try to vote for answer', js: true do
+      visit question_path(question)
+      within all('.vote').first do
+        expect(page).not_to have_link('+')
       end
     end
   end
