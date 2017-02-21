@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :vote do
+  factory :positive_vote_for_question, class: 'Vote' do
     
   end
 end
