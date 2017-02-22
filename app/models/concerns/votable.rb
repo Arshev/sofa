@@ -37,7 +37,7 @@ module Votable
       if vote.save
         { success: true, data: { rating: rating, vote: vote.value } }
       else
-        return { success: false, errors: vote.errors.full_messages }
+        { success: false, errors: vote.errors.full_messages }
       end
     end
   end
