@@ -12,8 +12,8 @@ RSpec.describe QuestionsController, type: :controller do
       before { patch :vote_up, params: {id: question} }
 
       it 'increase rating by 1' do
-        hh = {"rating":1, "vote":1}.to_json
-        expect(response.body).to eq(hh)
+        result = {"rating":1, "vote":1}.to_json
+        expect(response.body).to eq(result)
       end
 
       it 'responds with json' do
@@ -30,8 +30,8 @@ RSpec.describe QuestionsController, type: :controller do
       sign_in_user
       before { patch :vote_up, params: {id: question} }
       it 'increase rating by 0' do
-        hh = {"rating":0, "vote":0}.to_json
-        expect(response.body).to eq(hh)
+        result = {"rating":0, "vote":0}.to_json
+        expect(response.body).to eq(result)
       end
     end
   end
@@ -44,8 +44,27 @@ RSpec.describe QuestionsController, type: :controller do
       before { patch :vote_down, params: {id: question} }
 
       it 'increase rating by 1' do
-        hh = {"rating": -1, "vote": -1}.to_json
-        expect(response.body).to eq(hh)
+        result = {"rating": -1, "vote": -1}.to_json
+        expect(response.body).to eq(result)
+      end
+
+      it 'responds with json' do
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'save vote to db' do
+        resp = JSON.parse(@response.body)
+        expect(resp["vote"]).to eq(Vote.first.value)
+      end
+    end
+
+    context 'when user votes for own question' do
+      let(:users_record) { create(:question, user: @user) }
+      sign_in_user
+      before { patch :vote_down, params: {id: question} }
+      it 'increase rating by 0' do
+        result = {"rating":0, "vote":0}.to_json
+        expect(response.body).to eq(result)
       end
     end
   end
