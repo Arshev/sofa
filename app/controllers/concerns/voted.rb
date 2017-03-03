@@ -6,11 +6,15 @@ module Voted
   end
 
   def vote_up
-    respond(@votable.vote_up(current_user))
+    if !current_user.check_author(@votable)
+      respond(@votable.vote_up(current_user))
+    end
   end
 
   def vote_down
-    respond(@votable.vote_down(current_user))
+    if !current_user.check_author(@votable)
+      respond(@votable.vote_down(current_user))
+    end
   end
 
   private
