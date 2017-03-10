@@ -65,7 +65,7 @@ class QuestionsController < ApplicationController
     ActionCable.server.broadcast(
       'questions',
       ApplicationController.render(
-        partial: 'questions/question',
+        partial: 'questions/question_part',
         locals: { question: @question }
       )
     )
