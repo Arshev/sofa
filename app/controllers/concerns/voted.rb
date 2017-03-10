@@ -11,12 +11,6 @@ module Voted
     end
   end
 
-  def vote_down
-    if !current_user.check_author(@votable)
-      respond(@votable.vote_down(current_user))
-    end
-  end
-
   private
 
   def model_klass
