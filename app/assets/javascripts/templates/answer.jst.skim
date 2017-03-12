@@ -1,2 +1,4 @@
-p Hello #{@user_id}!
-
+hr
+div id="answer_#{@id} #{'best-answer' if @best }"
+  .answer-text = @body
+a.delete-answer-link data-remote="true" rel="nofollow" data-method="delete" href="/answers/#{@id}" Delete

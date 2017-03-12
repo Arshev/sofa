@@ -13,7 +13,7 @@ $ ->
 
   App.cable.subscriptions.create('AnswersChannel', {
     connected: ->
-      @perform 'follow'
+      @perform 'follow', data: gon.question_id
     ,
 
     received: (data) -> 
