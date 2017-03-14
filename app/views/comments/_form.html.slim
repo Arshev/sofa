@@ -1,4 +1,4 @@
-/ = render 'common/errors', resource: @comment
+/ = render 'common/errors', resource: comment
 
 = form_for [commentable, Comment.new], html: {id: "new-comment-#{commentable.class.name.downcase!}-#{commentable.id}"}, remote: true do |f|
   p= f.label :body

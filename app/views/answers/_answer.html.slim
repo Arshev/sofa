@@ -3,6 +3,12 @@ div id="answer_#{answer.id} #{'best-answer' if answer.best}"
   - if answer.persisted?
     .answer-text = answer.body
     = render 'votes/vote', resource: answer
+    - if user_signed_in?
+      .answer_comments
+        div id="add-comment-to-answer-#{answer.id}"
+          = render partial: 'comments/form', locals: { commentable: answer }
+    -if answer.comments.any?
+      = render answer.comments
     p Attachments:
     ul
       - answer.attachments.each do |a|

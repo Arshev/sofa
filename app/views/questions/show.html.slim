@@ -7,6 +7,7 @@ p
       div id="add-comment-to-question-#{@question.id}"
         = render partial: 'comments/form', locals: { commentable: @question }
   -if @question.comments.any?
+    h2 Comments
     = render @question.comments
 .answers
   - if @question.answers.count > 0
