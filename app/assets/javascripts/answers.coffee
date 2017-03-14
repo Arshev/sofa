@@ -17,5 +17,6 @@ $ ->
     ,
 
     received: (data) -> 
-      answersList.append(JST["templates/answer"](data))
+      if data.user_id != gon.user_id
+        answersList.append(JST["templates/answer"](data))
   })

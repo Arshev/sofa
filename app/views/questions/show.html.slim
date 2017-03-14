@@ -1,4 +1,13 @@
 = render @question
+.errors
+p
+.question id="question_#{@question.id}"
+  .question_attachment
+    .question_comments
+      div id="add-comment-to-question-#{@question.id}"
+        = render partial: 'comments/form', locals: { commentable: @question }
+  -if @question.comments.any?
+    = render @question.comments
 .answers
   - if @question.answers.count > 0
       = render 'answers'

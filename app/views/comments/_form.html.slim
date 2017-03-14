@@ -1,0 +1,6 @@
+/ = render 'common/errors', resource: @comment
+
+= form_for [commentable, Comment.new], html: {id: "new-comment-#{commentable.class.name.downcase!}-#{commentable.id}"}, remote: true do |f|
+  p= f.label :body
+  p= f.text_area :body, class: 'form-control'
+  p= f.submit 'Add comment', class: 'btn btn-primary'
