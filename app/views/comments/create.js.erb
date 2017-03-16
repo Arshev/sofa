@@ -1,0 +1,10 @@
+$(".errors").empty();
+$(".alert").remove();
+
+comments_selector = "#add-comment-to-<%= @comment.commentable_type.underscore %>-<%= @comment.commentable_id %>"
+<% if @comment.errors.present? %>
+  $('.errors').append('<%= j render "common/errors", resourse: @comment %>').appendTo(".errors");
+<% else %>
+  $(comments_selector).append("<%= j render @comment %>");
+<% end %>
+$('textarea#comment_body').val('');

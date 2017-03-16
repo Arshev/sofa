@@ -3,8 +3,9 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :set_question, only: [:create, :destroy, :best]
+  before_action :set_question, only: [:create]
   before_action :set_answer, only: [:update, :destroy, :best]
+  after_action :publish_answer, only: [:create]
   
   def create
     @answer = @question.answers.create(answers_params)
@@ -30,6 +31,7 @@ class AnswersController < ApplicationController
 
   def set_question
     @question = Question.find(params[:question_id])
+    gon.question_id = @question.id
   end
 
   def set_answer
@@ -37,6 +39,14 @@ class AnswersController < ApplicationController
   end
 
   def answers_params
-    params.required(:answer).permit(:body, attachments_attributes: [:file])
+    params.required(:answer).permit(:body, attachments_attributes: [:file, :id, :_destroy, :question_id])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+    ActionCable.server.broadcast(
+      "answers_#{@answer.question_id}",
+      @answer
+    )
   end
 end

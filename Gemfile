@@ -33,6 +33,8 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
 gem "cocoon"
+gem 'gon'
+gem 'skim'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

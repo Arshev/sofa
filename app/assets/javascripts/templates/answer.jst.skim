@@ -1,0 +1,3 @@
+hr
+div id="answer_#{@id} #{'best-answer' if @best }"
+  .answer-text = @body

@@ -60,9 +60,10 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'when user votes for own answer' do
-      let(:users_record) { create(:answer, user: @user) }
+      let!(:user) {create(:user)}
+      let!(:users_answer) { create(:answer, user: user, question: question) }
       sign_in_user
-      before { patch :vote_down, params: {id: answer} }
+      before { patch :vote_down, params: {id: users_answer} }
       it 'increase rating by 0' do
         result = {"rating":0, "vote":0}.to_json
         expect(response.body).to eq(result)
