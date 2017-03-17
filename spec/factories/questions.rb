@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   sequence :body do |n|
-    "Test content #{n}"
+    "Test content 1"
   end
 
   factory :question do

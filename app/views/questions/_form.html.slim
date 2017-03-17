@@ -12,7 +12,7 @@
       = f.submit 'Create', class: 'btn btn-primary'
       p Attachments:
     .form-group
-      = f.fields_for :attachments do |a|
+      = f.fields_for :attachments, @question.attachments.build do |a|
         = render 'attachments/attachment_fields', f: a
         = link_to_add_association '+ Add file', f, :attachments, partial: 'attachments/attachment_fields'
           

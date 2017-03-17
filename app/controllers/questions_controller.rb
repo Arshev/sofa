@@ -6,43 +6,36 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   before_action :build_answer, only: :show
   after_action :publish_question, only: [:create]
+
+  respond_to :js, only: [:edit, :update]
   
   def index
-    @questions = Question.all
+    respond_with (@questions = Question.all)
   end
 
   def show
-    @answer.attachments.build
+    respond_with @question
   end
 
   def new
-    @question = current_user.questions.new
-    @question.attachments.build
+    respond_with (@question = current_user.questions.new)
   end
 
   def edit
   end
 
   def create
-    @question = current_user.questions.create(question_params)
-    if @question.save
-      redirect_to @question, notice: 'Add question success'
-    else
-      render :new
-    end
+    respond_with (@question = current_user.questions.create(question_params))
   end
 
   def update
     @question.update(question_params) if current_user.check_author(@question)
+    respond_with @question
   end
 
   def destroy
-    if current_user.check_author(@question)
-      @question.destroy
-      redirect_to questions_path
-    else
-      redirect_to @question
-    end
+    @question.destroy if current_user.check_author(@question)
+    respond_with @question
   end
 
   private
