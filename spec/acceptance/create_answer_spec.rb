@@ -12,8 +12,10 @@ feature 'User can add answer on the question', %q{
     sign_in(user) #AcceptanceHelper module
 
     visit question_path(question)
-    fill_in 'Body', with: 'Test answer content'
-    click_on 'Add Answer'
+    within '.answers' do
+      fill_in 'Body', with: 'Test answer content'
+      click_on 'Add Answer'
+    end
     
     within '.answers' do
     expect(page).to have_content ('Test answer content')
