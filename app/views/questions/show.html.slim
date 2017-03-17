@@ -15,16 +15,15 @@ p
       = render 'answers'
   - else
       p class="empty-text" No answers yet.
-
-.form-group
-= form_for [@question, @answer], remote: true do |f|
   .form-group
-    = f.label :body
-    .answer-errors
-    = f.text_area :body, class: 'form-control'
-    p Attachments:
-    .form-group 
-      = f.fields_for :attachments, @answer.attachments.build do |a|
-        = render 'attachments/attachment_fields', f: a
-        = link_to_add_association '+ Add file', f, :attachments, partial: 'attachments/attachment_fields'
-    = f.submit 'Add Answer', class: 'btn btn-primary'
+  = form_for [@question, @answer], remote: true do |f|
+    .form-group
+      = f.label :body
+      .answer-errors
+      = f.text_area :body, class: 'form-control'
+      p Attachments:
+      .form-group 
+        = f.fields_for :attachments, @answer.attachments.build do |a|
+          = render 'attachments/attachment_fields', f: a
+          = link_to_add_association '+ Add file', f, :attachments, partial: 'attachments/attachment_fields'
+      = f.submit 'Add Answer', class: 'btn btn-primary'

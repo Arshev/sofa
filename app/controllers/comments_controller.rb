@@ -2,8 +2,11 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_commentable, only: :create
 
+  respond_to :js
+  respond_to :json, only: :create
+
   def create
-    @comment = @commentable.comments.create(comment_params.merge(user: current_user))
+    respond_with (@comment = @commentable.comments.create(comment_params.merge(user: current_user)))
   end
 
   private

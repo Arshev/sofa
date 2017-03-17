@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   before_action :build_answer, only: :show
   after_action :publish_question, only: [:create]
 
-  respond_to :js, only: [:edit, :update]
+  respond_to :js, :json
   
   def index
     respond_with (@questions = Question.all)
