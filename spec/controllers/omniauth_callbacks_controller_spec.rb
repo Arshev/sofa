@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OmniauthCallbacksController, type: :controller do
 
-  ['Facebook', 'Twitter'].each do |provider|
+  ['Facebook', 'Twitter', 'Vkontakte'].each do |provider|
     describe "GET ##{provider.downcase.to_sym}" do
       context 'if auth valid' do
         before do
