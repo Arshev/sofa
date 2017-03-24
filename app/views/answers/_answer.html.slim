@@ -9,17 +9,23 @@ div id="answer_#{answer.id} #{'best-answer' if answer.best}"
           = render partial: 'comments/form', locals: { commentable: answer }
     -if answer.comments.any?
       = render answer.comments
-    p Attachments:
-    ul
-      - answer.attachments.each do |a|
-        div id="attach_#{a.id}"
-          li= link_to a.file.identifier, a.file.url
-          - if user_signed_in? && current_user.check_author(a.attachmentable)
-            li= link_to 'delete', attachment_path(a), method: :delete, remote: true, data: {confirm: "Are you sure?"}
+    -else
+      p No comments yet
+    -if answer.attachments.any?
+      p Attachments:
+      ul
+        - answer.attachments.each do |a|
+          div id="attach_#{a.id}"
+            li= link_to a.file.identifier, a.file.url
+            - if user_signed_in? && current_user.check_author(a.attachmentable)
+              li= link_to 'delete', attachment_path(a), method: :delete, remote: true, data: {confirm: "Are you sure?"}
+    -else 
+      p No attachments yet
     - if !answer.best? && user_signed_in? && current_user.check_author(answer.question)
       = link_to 'Make best', best_answer_path(answer), method: :patch, remote: true, class: "btn btn-default make-best-link"
-    - if user_signed_in? && current_user.check_author(answer)
+    -if can?(:edit, answer)
       = link_to 'Edit', '', class: 'edit-answer-link btn btn-default', data: { answer_id: answer.id }
+    -if can?(:destroy, answer)
       = link_to 'Delete', [answer], class: 'delete-answer-link btn btn-default ', method: :delete, remote: true, data: {confirm: "Are you sure?"}
       p = form_for [answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
           p= f.label :body, 'Answer'

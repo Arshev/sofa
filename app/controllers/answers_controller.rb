@@ -3,12 +3,14 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
-  before_action :set_question, only: [:create, :best]
   before_action :set_answer, only: [:update, :destroy, :best]
+  before_action :set_question, only: [:create, :best]
   after_action :publish_answer, only: [:create]
 
   respond_to :js
   respond_to :json, only: :create
+
+  authorize_resource
   
   def create
     respond_with(@answer = @question.answers.create(answers_params.merge(user: current_user)))
@@ -25,7 +27,7 @@ class AnswersController < ApplicationController
 
   def best
     @answer.set_best if current_user.check_author(@answer)
-    respond_with @answer
+    respond_with @answer.set_best
   end
 
   private
