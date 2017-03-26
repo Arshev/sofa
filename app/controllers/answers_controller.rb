@@ -26,7 +26,6 @@ class AnswersController < ApplicationController
   end
 
   def best
-    @answer.set_best if current_user.check_author(@answer)
     respond_with @answer.set_best
   end
 
