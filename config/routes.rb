@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         get :me, on: :collection
         get :list, on: :collection
       end
+      resources :questions
     end
   end
   
