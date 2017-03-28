@@ -42,6 +42,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'cancancan'
 gem 'doorkeeper'
+gem 'active_model_serializers'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
