@@ -43,6 +43,8 @@ gem 'omniauth-vkontakte'
 gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

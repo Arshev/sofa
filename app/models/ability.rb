@@ -22,7 +22,7 @@ class Ability
 
   def user_abilities
     can :create, [Question, Answer, Comment, Attachment]
-    can [:me, :list], User
+    can [:me, :list, :show, :index], User
     guest_abilities
     owner_abilities
     voting_abilities

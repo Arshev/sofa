@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :attachment do
-    file "MyString"
+    file File.new("#{Rails.root}/spec/files/file.jpg")
   end
 end
