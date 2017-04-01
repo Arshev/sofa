@@ -3,18 +3,9 @@ require 'rails_helper'
 describe 'Answers API' do
   describe 'GET /index' do
     let!(:question) { create(:question) }
+    let(:api_path) {"/api/v1/questions/#{question.id}/answers"}
 
-    context 'unauthorized' do
-      it 'responds with code 401 if request does not have access_token' do
-        get "/api/v1/questions/#{question.id}/answers", params: { format: :json }
-        expect(response.status).to eq(401)
-      end
-
-      it 'responds with code 401 if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers", params: { format: :json, access_token: '123456' }
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
@@ -46,17 +37,9 @@ describe 'Answers API' do
     let!(:attachment) { create(:attachment, attachmentable: answer) }
     let!(:comment) { create(:comment, commentable: answer) }
 
-    context 'unauthorized' do
-      it 'responds with code 401 if request does not have access_token' do
-        get "/api/v1/answers/#{answer.id}", params: { format: :json }
-        expect(response.status).to eq(401)
-      end
+    let(:api_path) {"/api/v1/answers/#{answer.id}"}
 
-      it 'responds with code 401 if access_token is invalid' do
-        get "/api/v1/answers/#{answer.id}", params: { format: :json, access_token: '123456' }
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
