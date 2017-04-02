@@ -32,39 +32,6 @@ RSpec.describe Answer, type: :model do
     it { expect(answer2.best?).to eq true }
   end
 
-  describe 'vote_up answer set' do
-    before { answer1.vote_up(user) }
-    
-    it { expect(answer1.rating).to eq 1 }
-  end
-
-  describe 'vote_down answer set' do
-    before { answer1.vote_down(user) }
-    
-    it { expect(answer1.rating).to eq -1 }
-  end
-
-  describe 'has_positive_vote? answer set for vote_up method' do
-    before { answer1.vote_up(user) }
-    
-    it { expect(answer1.has_positive_vote?(user)).to eq true }
-  end
-
-  describe 'has_negative_vote? answer set for vote_up method' do
-    before { answer1.vote_up(user) }
-    
-    it { expect(answer1.has_negative_vote?(user)).to eq false }
-  end
-
-  describe 'has_positive_vote? answer set for vote_down method' do
-    before { answer1.vote_down(user) }
-    
-    it { expect(answer1.has_positive_vote?(user)).to eq false }
-  end
-
-  describe 'has_negative_vote? answer set for vote_down method' do
-    before { answer1.vote_down(user) }
-    
-    it { expect(answer1.has_negative_vote?(user)).to eq true }
-  end
+  let(:model) { answer1 }
+  it_behaves_like 'Voting'
 end
