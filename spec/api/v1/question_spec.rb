@@ -55,10 +55,13 @@ describe 'Questions API' do
       let!(:attachment) { create(:attachment, attachmentable: question) }
       let!(:comment) { create(:comment, commentable: question) }
       let(:attachmentable) { question }
+      let(:commentable) { question }
 
-      before { get "/api/v1/questions/#{question.id}", params: { format: :json, access_token: access_token.token } }
+      before { get api_path, params: { format: :json, access_token: access_token.token } }
       
       it_should_behave_like 'API attachments'
+
+      it_should_behave_like 'API comments'
 
       it 'responds with code 200' do
         expect(response.status).to eq(200)
