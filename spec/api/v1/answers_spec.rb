@@ -37,13 +37,15 @@ describe 'Answers API' do
     let!(:attachment) { create(:attachment, attachmentable: answer) }
     let!(:comment) { create(:comment, commentable: answer) }
     let(:access_token) { create(:access_token) }
-
     let(:api_path) {"/api/v1/answers/#{answer.id}"}
+    let(:attachmentable) { answer }
+    let(:commentable) { answer }
 
     it_behaves_like 'API Authenticable'
 
-    let(:attachmentable) { answer }
     it_should_behave_like 'API attachments'
+
+    it_should_behave_like 'API comments'
 
     context 'authorized' do
 
@@ -56,16 +58,6 @@ describe 'Answers API' do
       %w(id body created_at updated_at user_id).each do |attr|
         it "contains attribute #{attr}" do
           expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answer/#{attr}")
-        end
-      end
-
-      it 'contains comments list' do
-        expect(response.body).to have_json_size(1).at_path('answer/comments')
-      end
-
-      %w(id body created_at updated_at).each do |attr|
-        it "each comment contains attribute #{attr}" do
-          expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("answer/comments/0/#{attr}")
         end
       end
     end
