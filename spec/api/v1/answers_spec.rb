@@ -36,15 +36,18 @@ describe 'Answers API' do
     let(:answer) { create(:answer) }
     let!(:attachment) { create(:attachment, attachmentable: answer) }
     let!(:comment) { create(:comment, commentable: answer) }
+    let(:access_token) { create(:access_token) }
 
     let(:api_path) {"/api/v1/answers/#{answer.id}"}
 
     it_behaves_like 'API Authenticable'
 
-    context 'authorized' do
-      let(:access_token) { create(:access_token) }
+    let(:attachmentable) { answer }
+    it_should_behave_like 'API attachments'
 
-      before { get "/api/v1/answers/#{answer.id}", params: { format: :json, access_token: access_token.token } }
+    context 'authorized' do
+
+      before { get api_path, params: { format: :json, access_token: access_token.token } }
 
       it 'responds with code 200' do
         expect(response.status).to eq(200)
@@ -54,18 +57,6 @@ describe 'Answers API' do
         it "contains attribute #{attr}" do
           expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answer/#{attr}")
         end
-      end
-
-      it 'contains attachments list' do
-        expect(response.body).to have_json_size(1).at_path('answer/attachments')
-      end
-
-      it 'each attachment contains attribute name' do
-        expect(response.body).to be_json_eql('file.jpg'.to_json).at_path('answer/attachments/0/name')
-      end
-
-      it 'each attachment contains attribute src' do
-        expect(response.body).to be_json_eql("/uploads/attachment/file/#{attachment.id}/file.jpg".to_json).at_path('answer/attachments/0/src')
       end
 
       it 'contains comments list' do
