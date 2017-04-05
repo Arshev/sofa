@@ -45,6 +45,8 @@ gem 'doorkeeper'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'whenever'
+gem 'sidekiq'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
