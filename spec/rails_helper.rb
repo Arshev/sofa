@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'cancan/matchers'
+require 'sidekiq/testing'
 # Add additional requires below this line. Rails is not loaded until this point!
 ENV['RAILS_ENV'] ||= 'test'
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -21,6 +22,9 @@ ENV['RAILS_ENV'] ||= 'test'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
+
+Sidekiq::Testing.fake!
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
