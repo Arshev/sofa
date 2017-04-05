@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :questions
   has_many :answers
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   def check_author(item)  
     item.user_id == id

@@ -21,7 +21,7 @@ class Ability
   end
 
   def user_abilities
-    can :create, [Question, Answer, Comment, Attachment]
+    can :create, [Question, Answer, Comment, Attachment, Subscription]
     can [:me, :list, :show, :index], User
     guest_abilities
     owner_abilities
@@ -29,7 +29,7 @@ class Ability
   end
 
   def owner_abilities
-    can [:update, :destroy], [Question, Answer, Comment], user_id: @user.id
+    can [:update, :destroy], [Question, Answer, Comment, Subscription], user_id: @user.id
     can :destroy, Attachment, attachmentable: { user_id: @user.id }
     can :best, Answer, question: { user_id: @user.id }
     can :set_best, Answer do |answer|

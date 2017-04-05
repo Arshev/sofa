@@ -15,6 +15,8 @@ class Answer < ApplicationRecord
 
   default_scope { order("best DESC, created_at") }
 
+  after_create :notify_question_subscribers
+
   def set_best
     Answer.transaction do
       question.answers.update_all(best:false)
@@ -23,5 +25,9 @@ class Answer < ApplicationRecord
     end  
   end
 
-  
+  private
+
+  def notify_question_subscribers
+    NotifySubscribersJob.perform_later(self, question)
+  end
 end

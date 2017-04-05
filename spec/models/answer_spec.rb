@@ -34,4 +34,14 @@ RSpec.describe Answer, type: :model do
 
   let(:model) { answer1 }
   it_behaves_like 'Voting'
+
+  describe '#send_notification' do
+    let(:question) { create :question }
+    let(:answer) { build :answer, question: question }
+
+    it 'sends email to question owner and subscribers when answer is created' do
+      expect(NotificationsJob).to receive(:perform_later).with(answer, question)
+      answer.save!
+    end
+  end
 end
