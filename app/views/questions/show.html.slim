@@ -12,6 +12,9 @@ p
     = render @question.comments
   -else
     p No comments yet
+h2 Subscriptions
+div id="question-#{@question.id}-subscriptions" class = 'question-subscriptions'
+  = render 'subscriptions/subscription', question: @question
 .answers
   - if @question.answers.count > 0
       = render 'answers'
