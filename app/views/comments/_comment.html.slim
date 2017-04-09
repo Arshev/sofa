@@ -1,4 +1,5 @@
 div id="comment_#{comment.id}"
+  a name="comment_#{comment.id}"
   .comment = comment.body
   - if can?(:destroy, comment)
     = link_to 'Delete', comment, class: 'delete-comment-link btn btn-default ', method: :delete, remote: true, data: {confirm: "Are you sure?"}

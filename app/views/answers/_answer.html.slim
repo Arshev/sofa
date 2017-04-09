@@ -1,5 +1,6 @@
 hr
 div id="answer_#{answer.id} #{'best-answer' if answer.best}"
+  a name="answer_#{answer.id}"
   - if answer.persisted?
     .answer-text = answer.body
     = render 'votes/vote', resource: answer
