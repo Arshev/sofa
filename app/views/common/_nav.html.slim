@@ -7,6 +7,8 @@
     a.navbar-brand href="/" SOFA
     .navbar-collapse.collapse.navbar-responsive-collapse
       ul.nav.navbar-nav.navbar-right
+        li.search
+          = render 'search/form'
         - if user_signed_in?
             li.navbar-text 
               = t('hello')  

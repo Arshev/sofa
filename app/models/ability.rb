@@ -39,6 +39,7 @@ class Ability
 
   def guest_abilities
     can :read, :all
+    can :find, Search
     cannot :read, User
   end
 
