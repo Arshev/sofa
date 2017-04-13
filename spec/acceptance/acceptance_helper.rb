@@ -6,6 +6,7 @@ OmniAuth.config.logger = Rails.logger
 RSpec.configure do |config|
 
   Capybara.javascript_driver = :webkit
+  Capybara.server = :puma
   
   # Database Cleaner
   config.before(:suite) do
