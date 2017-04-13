@@ -16,14 +16,14 @@ feature 'Search', %q{
     visit root_path
   end
 
-  scenario 'searching in everywhere' do
+  scenario 'searching in everywhere', js: true do
     fill_in 'query', with: 'Test'
     select 'everywhere', from: 'object'
     click_button 'Search'
 
-    # expect(page).to have_content user.email
+    expect(page).to have_content user.email
     expect(page).to have_content question.title
-    # expect(page).to have_content answer.body
-    # expect(page).to have_content comment.body
+    expect(page).to have_content answer.body
+    expect(page).to have_content comment.body
   end
 end
