@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   sequence :title do |n|
-    "Question #{n}"
+    "Question Test #{n}"
   end
 
   sequence :body do |n|

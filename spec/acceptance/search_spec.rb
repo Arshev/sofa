@@ -26,4 +26,15 @@ feature 'Search', %q{
     expect(page).to have_content answer.body
     expect(page).to have_content comment.body
   end
+
+  # scenario 'searching in question', js: true do
+  #   fill_in 'query', with: 'Test'
+  #   select 'questions', from: 'object'
+  #   click_button 'Search'
+
+  #   expect(page).to_not have_content user.email
+  #   expect(page).to have_content question.title
+  #   expect(page).to_not have_content answer.body
+  #   expect(page).to_not have_content comment.body
+  # end
 end

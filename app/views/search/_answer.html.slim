@@ -1,4 +1,2 @@
 li.list-group-item
-  - if object == 'everywhere'
-    p answer
-  = link_to object.body, question_path(object.question) + "#answer_#{object.id}"
+  = link_to response.body, question_path(response.question) + "#answer_#{response.id}"
