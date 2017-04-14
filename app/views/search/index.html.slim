@@ -1,7 +1,7 @@
 - if @results.any?
     h2 Results
     .list-group
-      - @results.each do |object|
-        = render "#{object.class.name.downcase}", object: object
+      - @results.each do |response|
+        = render "#{response.class.name.downcase}", response: response
 - else
     h4.text-center= "Not found"
