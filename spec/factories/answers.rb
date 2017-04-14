@@ -6,7 +6,7 @@ FactoryGirl.define do
 
   factory :answer do
     user
-    body
+    body 'Answer'
   end
 
   factory :answer_best do
