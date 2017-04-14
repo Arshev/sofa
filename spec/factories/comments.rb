@@ -3,7 +3,7 @@ FactoryGirl.define do
     "Comment #{n}"
   end
   factory :comment do
-    body
+    body 'Comment'
     user
     association :commentable, factory: :question
 

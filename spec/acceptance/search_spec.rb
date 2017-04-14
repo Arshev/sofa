@@ -27,14 +27,47 @@ feature 'Search', %q{
     expect(page).to have_content comment.body
   end
 
-  # scenario 'searching in question', js: true do
-  #   fill_in 'query', with: 'Test'
-  #   select 'questions', from: 'object'
-  #   click_button 'Search'
+  scenario 'searching in question', js: true do
+    fill_in 'query', with: 'Test'
+    select 'questions', from: 'object'
+    click_button 'Search'
 
-  #   expect(page).to_not have_content user.email
-  #   expect(page).to have_content question.title
-  #   expect(page).to_not have_content answer.body
-  #   expect(page).to_not have_content comment.body
-  # end
+    expect(page).to_not have_content user.email
+    expect(page).to have_content question.title
+    expect(page).to_not have_content answer.body
+    expect(page).to_not have_content comment.body
+  end
+
+  scenario 'searching in answers', js: true do
+    fill_in 'query', with: 'Answer'
+    select 'answers', from: 'object'
+    click_button 'Search'
+
+    expect(page).to_not have_content user.email
+    expect(page).to_not have_content question.title
+    expect(page).to have_content answer.body
+    expect(page).to_not have_content comment.body
+  end
+
+  scenario 'searching in comments', js: true do
+    fill_in 'query', with: 'Comment'
+    select 'comments', from: 'object'
+    click_button 'Search'
+
+    expect(page).to_not have_content user.email
+    expect(page).to_not have_content question.title
+    expect(page).to_not have_content answer.body
+    expect(page).to have_content comment.body
+  end
+
+  scenario 'searching in users', js: true do
+    fill_in 'query', with: 'Test'
+    select 'users', from: 'object'
+    click_button 'Search'
+
+    expect(page).to have_content user.email
+    expect(page).to_not have_content question.title
+    expect(page).to_not have_content answer.body
+    expect(page).to_not have_content comment.body
+  end
 end
