@@ -1,7 +1,7 @@
 class Comment < ApplicationRecord
   after_create :actioncable_commentable
   
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, touch: true
   belongs_to :user
 
   validates :user_id, :body, presence: true

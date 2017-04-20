@@ -2,8 +2,9 @@
   .field
     - attachment = f.object
     - if attachment.persisted?
-      .attached
-        = link_to attachment.file.identifier, attachment.file.url
+      - cache attachment do
+        .attached
+          = link_to attachment.file.identifier, attachment.file.url
     - else
       .field
         = f.label :file
